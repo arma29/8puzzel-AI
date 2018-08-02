@@ -1,4 +1,5 @@
 # 8puzzle-AI
+# Current Version: Beta 1.0
 
 > The [8Puzzle ](https://en.wikipedia.org/wiki/15_puzzle) resolved with [A Star Algorithm](https://en.wikipedia.org/wiki/A*_search_algorithm).
 
