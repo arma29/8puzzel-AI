@@ -67,10 +67,31 @@ class GameLogic{
 */
     initializeGrid(){
         var elements = [0,1,2,3,4,5,6,7,8];
-
+        var mtz_rand = []
         //22 moves
-        this.grid = [[4,5,0],[8,6,1],[3,7,2]];
+        //this.grid = [[4,5,0],[8,6,1],[3,7,2]];
+        var mtz1 = [[4,5,0],[8,6,1],[3,7,2]];
+        var mtz2 = [[4,5,1],[8,6,2],[3,7,0]];
+        var mtz3 = [[4,5,1],[8,6,2],[0,3,7]];
+        var mtz4 = [[4,5,1],[6,0,2],[8,3,7]];
+        var mtz5 = [[0,4,1],[6,5,2],[8,3,7]];
+        var mtz6 = [[2,3,0],[1,5,6],[4,7,8]];
+        var mtz7 = [[2,3,6],[1,5,8],[4,7,0]];
+        var mtz8 = [[0,3,6],[2,5,8],[1,4,7]];
+        var mtz9 = [[3,5,6],[2,0,8],[1,4,7]];
 
+        mtz_rand.push(mtz1);
+        mtz_rand.push(mtz2);
+        mtz_rand.push(mtz3);
+        mtz_rand.push(mtz4);
+        mtz_rand.push(mtz5);
+        mtz_rand.push(mtz6);
+        mtz_rand.push(mtz7);
+        mtz_rand.push(mtz8);
+        mtz_rand.push(mtz9);
+
+        var chosenIn = floor(random(mtz_rand.length));
+        this.grid = mtz_rand[chosenIn];
         // muito easy
         //this.grid = [[2,3,0],[1,5,6],[4,7,8]];
 
@@ -148,6 +169,8 @@ class GameLogic{
                 }
                 break;
         }
+
+        return this.grid;
     }
 
     swap(x1, y1, x2, y2) {
@@ -287,7 +310,7 @@ class GameLogic{
                     console.table(temp_a[i].grid);
                 }*/
 
-                break;
+                return temp_a;
             }
 
             //vizinhos
@@ -315,7 +338,7 @@ class GameLogic{
 
         }
 
-        //return node;
+        return [];
 
     }
 
