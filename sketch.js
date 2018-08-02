@@ -8,15 +8,18 @@ var flex;
 // etc
 var moves;
 var isRunning = false;
+var score = 0;
 
 function setup() {
   createCanvas(500, 500);
   type = new GameLogic();
   type.initializeGrid();
-  type.populateNeighbors();
-  type.getNeighbors();
+  //type.populateNeighbors();
+    //type.getNeighbors();
   //type.getFather();
-  type.Astar(type);
+  //console.log(Manhattan(type.grid));
+
+
   tiles = [[],[],[]];
   flex = width/3;
   for(var i = 0; i < 3; i++) {
@@ -31,6 +34,7 @@ function setup() {
 function draw() {
   background(51);
   drawTiles();
+  text (score, 600,600);
 
   if(isRunning){
       //ativada ao apertar algo, roda o A*;
@@ -47,7 +51,7 @@ function drawTiles() {
 }
 
 function keyPressed(){
-
+    score++;
     if(keyCode == LEFT_ARROW){
         type.step2(3);
     }
@@ -59,6 +63,9 @@ function keyPressed(){
     }
     else if(keyCode == RIGHT_ARROW){
         type.step2(1);
+    }
+    else if(key = ' '){
+        type.Astar(type);
     }
 
 }

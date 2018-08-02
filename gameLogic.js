@@ -1,3 +1,50 @@
+function myCompare(a,b){
+    return a.priority - b.priority
+
+}
+
+function mtzCompare(mtz1, mtz2){
+    for (var i = 0; i < 3; i++) {
+        for (var j = 0; j < 3; j++) {
+            if(mtz1[i][j] != mtz2[i][j]){
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+function hasBetter(node, vetor){
+    for (var i = 0; i < vetor.length; i++) {
+        if(mtzCompare(node.grid, vetor[i].grid)){
+            //console.log("ola?");
+            if(node.priority >= vetor[i].priority){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+function Manhattan(mtz){
+    var somat = 0;
+    for (var i = 0; i < 3; i++) {
+        for (var j = 0; j < 3; j++) {
+            if(mtz[i][j] != 0){
+                var temp = mtz[i][j] - 1;
+                var fi = int(temp/3);
+                var fj = temp - (fi*3);
+
+                somat += abs(fi - i) + abs(fj - j);
+            }
+        }
+    }
+    return somat;
+}
+
+
+
 class GameLogic{
     constructor(){
         this.grid = [[], [], []];
@@ -14,18 +61,27 @@ class GameLogic{
 
     }
 
-    myCompare(a,b){
+    /*myCompare(a,b){
         return a.priority - b.priority;
     }
-
+*/
     initializeGrid(){
         var elements = [0,1,2,3,4,5,6,7,8];
 
+        //22 moves
+        this.grid = [[4,5,0],[8,6,1],[3,7,2]];
+
+        // muito easy
+        //this.grid = [[2,3,0],[1,5,6],[4,7,8]];
+
+        //28
+        //this.grid = [[0,3,7],[8,6,2],[5,4,1]];
+
         for(let i = 0; i< 3; i++){
             for(let j = 0; j<3; j++){
-                var chosenIndex = floor(random(elements.length));
+                /*var chosenIndex = floor(random(elements.length));
                 this.grid[i][j] = elements[chosenIndex];
-                elements.splice(chosenIndex,1);
+                elements.splice(chosenIndex,1);*/
                 if(this.grid[i][j] == 0){
                     this.i0 = i;
                     this.j0 = j;
@@ -164,8 +220,8 @@ class GameLogic{
 
             if(temp != node.moves){
                 //console.table(node.grid);
-                node.hfunc = 111111111111;
-                node.priority = 22222222222222;
+                node.hfunc = Manhattan(node.grid);
+                node.priority = node.hfunc + node.moves;
 
                 this.neighbors.push(node);
                 //console.table(node.previous.grid);
@@ -189,25 +245,55 @@ class GameLogic{
     }
 
     Astar(node){
-        var openSet = SortedList.create(GameLogic.myCompare);
-        var closedSet = SortedList.create(GameLogic.myCompare);
+        //var openSet = SortedList.create();
+        var openSet = [];
+        var closedSet = [];
 
-
-        //start
-        openSet.insert(node);
-
-
-        //console.log(openSet[0].grid);
-
+        var mtz = [[1,2,3],[4,5,6],[7,8,0]];
+        openSet.push(node);
+        var desce = 10;
         while(openSet.length > 0){
+            openSet.sort(myCompare);
+
             var current = openSet[0];
-            //openSet.remove(0);
+            openSet.splice(0,1);
+            //console.table(current.grid);
+            //console.log("vizin " + current.moves);
+            //console.log(openSet.length);
+            //delay(10000);
 
-            //console.log(openSet[0].grid);
-            console.log(current.grid);
+            if(mtzCompare(current.grid, mtz)){
+                console.log("aeeee fdp");
+                console.log(current.moves);
+                break;
+            }
 
-            openSet.remove(0);
+            //vizinhos
+            current.populateNeighbors();
+            for (var i = 0; i < current.neighbors.length; i++) {
+                var cur_neighbor = current.neighbors[i];
+
+                //console.table(cur_neighbor.grid);
+                //console.log("vizin " + cur_neighbor.moves);
+
+                if(!hasBetter(cur_neighbor, openSet) &&
+                    !hasBetter(cur_neighbor, closedSet)){
+                        openSet.push(cur_neighbor)
+                        //console.log("chega aqui?");
+                    }
+
+            }
+            //openSet.sort(myCompare);
+            //console.table(openSet[0].grid);
+
+            closedSet.push(cur_neighbor);
+            closedSet.sort(myCompare);
+
+            desce--;
+
         }
+
+        //return node;
 
     }
 
