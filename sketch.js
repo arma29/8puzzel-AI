@@ -11,9 +11,20 @@ var isRunning = false;
 var score = 0;
 
 function setup() {
-  createCanvas(500, 500);
+  createCanvas(900, 700);
+
+  //input = createInput();
+  //input.position(20,65);
+
+
+
   type = new GameLogic();
   type.initializeGrid();
+
+  button = createButton('Solve');
+
+  button.position(800, 150);
+  button.mousePressed(GoGo);
   //type.populateNeighbors();
     //type.getNeighbors();
   //type.getFather();
@@ -21,7 +32,7 @@ function setup() {
 
 
   tiles = [[],[],[]];
-  flex = width/3;
+  flex = 210;
   for(var i = 0; i < 3; i++) {
     for(var j = 0; j < 3; j++) {
       tiles[i][j] = new Board(j * flex, i * flex,
@@ -31,10 +42,14 @@ function setup() {
 
 }
 
+function GoGo(){
+    type.Astar(type);
+}
+
 function draw() {
-  background(51);
+  background(255);
   drawTiles();
-  text (score, 600,600);
+  text ("Moves: " + score, 800,90);
 
   if(isRunning){
       //ativada ao apertar algo, roda o A*;

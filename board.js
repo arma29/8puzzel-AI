@@ -13,7 +13,7 @@ class Board{
     display(){
         if(this.number != 0){
             rect(this.x, this.y, this.a, this.a);
-            textSize(32);
+            textSize(42);
             textAlign(CENTER, CENTER);
             text(this.number, this.x, this.y, this.a, this.a);
         }

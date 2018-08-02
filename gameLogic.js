@@ -244,6 +244,21 @@ class GameLogic{
         }
     }
 
+    pathFinder(node){
+        var path_array = [];
+        while(node.previous != null){
+            //console.table(node.grid);
+            //coloca invertido
+            path_array.unshift(node);
+            node = node.previous;
+        }
+        //console.table(node.grid);
+        path_array.unshift(node);
+
+
+        return path_array;
+    }
+
     Astar(node){
         //var openSet = SortedList.create();
         var openSet = [];
@@ -265,6 +280,13 @@ class GameLogic{
             if(mtzCompare(current.grid, mtz)){
                 console.log("aeeee fdp");
                 console.log(current.moves);
+
+                var temp_a = current.pathFinder(current);
+                //console.table(temp_a[0].grid);
+                /*for (var i = 0; i < temp_a.length; i++) {
+                    console.table(temp_a[i].grid);
+                }*/
+
                 break;
             }
 
