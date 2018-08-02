@@ -4,4 +4,4 @@
 
 > The game can aslo be played.
 
->[You can find the application here]
+>[You can find the application here](https://arma29.github.io/8puzzle-AI/.)
