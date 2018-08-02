@@ -7,6 +7,7 @@ var flex;
 
 // etc
 var moves;
+var isRunning = false;
 
 function setup() {
   createCanvas(500, 500);
@@ -14,7 +15,8 @@ function setup() {
   type.initializeGrid();
   type.populateNeighbors();
   type.getNeighbors();
-  type.getFather();
+  //type.getFather();
+  type.Astar(type);
   tiles = [[],[],[]];
   flex = width/3;
   for(var i = 0; i < 3; i++) {
@@ -23,11 +25,16 @@ function setup() {
            flex - 3, type.grid[i][j]);
     }
   }
+
 }
 
 function draw() {
   background(51);
   drawTiles();
+
+  if(isRunning){
+      //ativada ao apertar algo, roda o A*;
+  }
 }
 
 function drawTiles() {
@@ -38,25 +45,6 @@ function drawTiles() {
     }
   }
 }
-
-/*function mousePressed() {
-  // print(floor(mouseX / flex), floor(mouseY / flex));
-
-  var clickedX = floor(mouseY / flex);
-  var clickedY = floor(mouseX / flex);
-  console.log(clickedX);
-  console.log(clickedY);
-  // print(clickedX, clickedY);
-  // print(type.grid[clickedX][clickedY]);
-  if(clickedX < 3 && clickedY < 3) {
-    if(type.grid[clickedX][clickedY] != 0) {
-      type.step(clickedX, clickedY);
-    }
-
-    console.log(moves);
-  }
-
-}*/
 
 function keyPressed(){
 

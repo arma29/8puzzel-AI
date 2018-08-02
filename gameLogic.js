@@ -5,12 +5,17 @@ class GameLogic{
         this.j0 = 0;
         this.moves = 0;
 
+        this.f = 0;
         this.hfunc = 0;
         this.priority = 0;
 
         this.neighbors = undefined;
         this.previous = null;
 
+    }
+
+    myCompare(a,b){
+        return a.priority - b.priority;
     }
 
     initializeGrid(){
@@ -124,6 +129,7 @@ class GameLogic{
         }
         node.moves = this.moves;
 
+        node.f = this.f;
         node.hfunc = this.hfun;
         node.priority = this.priority;
 
@@ -180,6 +186,29 @@ class GameLogic{
         for(var i = 0; i < this.neighbors.length; i++){
             console.log(this.neighbors[i].previous.grid);
         }
+    }
+
+    Astar(node){
+        var openSet = SortedList.create(GameLogic.myCompare);
+        var closedSet = SortedList.create(GameLogic.myCompare);
+
+
+        //start
+        openSet.insert(node);
+
+
+        //console.log(openSet[0].grid);
+
+        while(openSet.length > 0){
+            var current = openSet[0];
+            //openSet.remove(0);
+
+            //console.log(openSet[0].grid);
+            console.log(current.grid);
+
+            openSet.remove(0);
+        }
+
     }
 
 
